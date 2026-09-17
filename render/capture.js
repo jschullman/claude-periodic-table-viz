@@ -40,18 +40,15 @@ function chromiumPath() {
   return undefined;
 }
 
-function ffmpegPath() {
+// Note: the ffmpeg that ships inside playwright's browser bundle is a stripped
+// build with only VP8/webm, so it cannot produce the H.264 MP4 we want. Prefer
+// the full static build.
+async function ffmpegPath() {
   if (process.env.FFMPEG_PATH) return process.env.FFMPEG_PATH;
-  const dir = '/opt/pw-browsers';
-  if (fs.existsSync(dir)) {
-    for (const d of fs.readdirSync(dir)) {
-      if (!d.startsWith('ffmpeg')) continue;
-      for (const c of ['ffmpeg-linux', 'ffmpeg']) {
-        const p = path.join(dir, d, c);
-        if (fs.existsSync(p)) return p;
-      }
-    }
-  }
+  try {
+    const m = await import('ffmpeg-static');
+    if (m.default && fs.existsSync(m.default)) return m.default;
+  } catch { /* fall through to whatever is on PATH */ }
   return 'ffmpeg';
 }
 
@@ -86,7 +83,7 @@ let ff = null, done = null;
 if (O.video) {
   const outPath = path.resolve(ROOT, O.out);
   fs.mkdirSync(path.dirname(outPath), { recursive: true });
-  const bin = ffmpegPath();
+  const bin = await ffmpegPath();
   ff = spawn(bin, [
     '-y', '-hide_banner', '-loglevel', 'error',
     '-f', 'image2pipe', '-vcodec', 'png', '-framerate', String(O.fps), '-i', 'pipe:0',
