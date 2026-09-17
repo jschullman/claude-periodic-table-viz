@@ -268,3 +268,29 @@ script prefers automatically.
 
 Capture runs at roughly 10 frames/second, so a full 5322-frame render takes about nine
 minutes.
+
+---
+
+## Licence
+
+Copyright © 2026 Josh Schullman.
+
+This program is free software: you can redistribute it and/or modify it under the terms of
+the **GNU General Public License** as published by the Free Software Foundation, either
+version 3 of the Licence, or (at your option) any later version. It is distributed in the
+hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See [`LICENSE`](LICENSE) for the full
+text, or <https://www.gnu.org/licenses/>.
+
+`SPDX-License-Identifier: GPL-3.0-or-later`
+
+This covers the code, the CSV data files and the rendered film alike. Note that the
+underlying facts — atomic numbers, weights, who discovered what and when — are not
+copyrightable; the licence applies to this particular compilation and presentation of them.
+
+### Dependencies
+
+Both dev dependencies are separate works with their own terms: Playwright is Apache-2.0,
+and `ffmpeg-static` ships a prebuilt ffmpeg binary (see
+`node_modules/ffmpeg-static/ffmpeg.LICENSE` for that build's terms). Neither is
+redistributed here — `npm install` fetches them.
