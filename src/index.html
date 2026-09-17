@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>The Periodic Table, 1600-2026</title>
+<style>
+  :root { --bg:#0f1118; --panel:#161922; --text:#e9ebf2; --dim:#8f97ab; --accent:#e8c46a; }
+  * { box-sizing: border-box; }
+  html, body { margin:0; height:100%; background:var(--bg); color:var(--text);
+    font-family:"Liberation Sans", Arial, Helvetica, sans-serif; }
+  body { display:flex; flex-direction:column; align-items:center; gap:14px; padding:16px; }
+  #stage { width:100%; max-width:1600px; aspect-ratio:16/9; display:block;
+    background:var(--bg); border:1px solid rgba(233,235,242,0.1); border-radius:6px; }
+  #controls { width:100%; max-width:1600px; display:flex; flex-direction:column; gap:10px; }
+  .row { display:flex; align-items:center; gap:14px; }
+  button { background:var(--panel); color:var(--text); border:1px solid rgba(233,235,242,0.18);
+    border-radius:5px; padding:8px 16px; font:inherit; font-size:14px; cursor:pointer; }
+  button:hover { border-color:var(--accent); color:var(--accent); }
+  #play { min-width:84px; font-weight:700; }
+  #scrub { flex:1; accent-color:var(--accent); height:22px; }
+  #readout { color:var(--dim); font-size:13px; font-variant-numeric:tabular-nums; white-space:nowrap; }
+  #ticks { display:flex; flex-wrap:wrap; gap:8px; }
+  .tick { padding:5px 11px; font-size:12px; color:var(--dim); }
+  .tick.morph { color:var(--accent); border-color:rgba(232,196,106,0.35); }
+  .hint { color:#5d6577; font-size:12px; }
+  /* The renderer loads with ?render=1 and hides the chrome. */
+  body.render-mode { padding:0; gap:0; background:#0f1118; }
+  body.render-mode #controls { display:none; }
+  body.render-mode #stage { max-width:none; width:1920px; height:1080px; border:0; border-radius:0; }
+</style>
+</head>
+<body class="loading">
+  <canvas id="stage"></canvas>
+  <div id="controls">
+    <div class="row">
+      <button id="play">Play</button>
+      <input id="scrub" type="range" min="0" max="100" value="0" step="1">
+      <span id="readout">loading…</span>
+    </div>
+    <div id="ticks"></div>
+    <div class="hint">space = play/pause · arrows = step a frame · shift+arrows = jump a second</div>
+  </div>
+  <script type="module" src="./js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,13 @@
+{
+  "name": "periodic-table-evolution",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Animated visualisation of the periodic table's changing layout, 1600-2026",
+  "scripts": {
+    "start": "node scripts/serve.js",
+    "frames": "node render/capture.js",
+    "render": "bash render/render.sh"
+  },
+  "devDependencies": { "playwright": "^1.49.0" }
+}
